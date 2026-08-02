@@ -1,26 +1,170 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream: #f6efe6;
+  --cream-deep: #efe4d6;
+  --ink: #2a1c22;
+  --ink-soft: #4a3a41;
+  --ink-muted: #7a6670;
+  --pink: #d4537e;
+  --pink-deep: #b83d66;
+  --pink-soft: #f3c5d4;
+  --line: color-mix(in srgb, var(--ink) 10%, transparent);
+  --background: var(--cream);
+  --foreground: var(--ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% -10%, rgba(212, 83, 126, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 20%, rgba(243, 197, 212, 0.35), transparent 50%),
+    radial-gradient(ellipse 50% 30% at 50% 100%, rgba(239, 228, 214, 0.9), transparent 60%),
+    linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+}
+
+.hero-atmosphere {
+  background:
+    linear-gradient(
+      105deg,
+      color-mix(in srgb, var(--cream) 96%, white) 0%,
+      color-mix(in srgb, var(--cream) 82%, var(--pink-soft)) 55%,
+      color-mix(in srgb, var(--pink-soft) 35%, var(--cream)) 100%
+    );
+}
+
+.hero-photo-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  background:
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--cream) 88%, white) 0%,
+      color-mix(in srgb, var(--cream) 55%, var(--pink-soft)) 52%,
+      color-mix(in srgb, var(--pink-soft) 55%, var(--cream)) 100%
+    );
+  box-shadow:
+    0 0 0 12px color-mix(in srgb, var(--cream) 55%, transparent),
+    0 0 40px 8px color-mix(in srgb, var(--pink-soft) 45%, transparent),
+    0 16px 36px -28px rgba(184, 61, 102, 0.18);
+}
+
+.hero-photo-img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  animation: hero-photo-drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes hero-photo-drift {
+  from {
+    transform: scale(1) translateY(0);
+  }
+  to {
+    transform: scale(1.03) translateY(-6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-img {
+    animation: none;
+  }
+}
+
+.section-pad {
+  padding-block: clamp(4.5rem, 10vw, 7rem);
+}
+
+.section-title {
+  font-family: var(--font-display), serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.field {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, white 70%, var(--cream));
+  padding: 0.75rem 0.9rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pink) 18%, transparent);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cert-preview {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cert-preview.is-open {
+  grid-template-rows: 1fr;
+}
+
+.cert-preview-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .cert-preview {
+    transition: none;
+  }
 }
