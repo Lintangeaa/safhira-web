@@ -12,9 +12,9 @@ export const dictionaries = {
       contact: "Contact",
     },
     hero: {
-      title: "Associate Product Manager",
+      title: "Product Manager",
       openLine: "Also exploring System Analyst roles",
-      availability: "Open to Associate Product Manager & System Analyst roles",
+      availability: "Open to Product Manager & System Analyst roles",
       location: "Purwokerto · Bandung",
       supporting:
         "I bridge users, business, and engineering—turning research and requirements into products that ship.",
@@ -24,7 +24,7 @@ export const dictionaries = {
       photoAlt: "Portrait of Safhira Nanda",
       photoPending: "Photo coming soon",
       badge: "Available for new roles",
-      currentRole: "Currently APM at Cazh",
+      currentRole: "Currently PM at Cazh",
       stats: [
         { value: "3.93", label: "GPA · Information Systems" },
         { value: "6", label: "Certifications" },
@@ -43,7 +43,7 @@ export const dictionaries = {
         {
           company: "PT Cazh Teknologi Inovasi",
           place: "Banyumas, Indonesia",
-          role: "Associate Product Manager",
+          role: "Product Manager",
           period: "Feb 2025 — Present",
           blurb:
             "EdTech company specializing in education management systems—improving efficiency, transparency, and accessibility of educational administration.",
@@ -211,7 +211,7 @@ export const dictionaries = {
       email: "Email",
       role: "Role interest",
       roleOptions: [
-        { value: "apm", label: "Associate Product Manager" },
+        { value: "apm", label: "Product Manager" },
         { value: "sa", label: "System Analyst" },
         { value: "other", label: "Other" },
       ],
@@ -238,10 +238,10 @@ export const dictionaries = {
       contact: "Kontak",
     },
     hero: {
-      title: "Associate Product Manager",
+      title: "Product Manager",
       openLine: "Juga terbuka untuk peran System Analyst",
       availability:
-        "Terbuka untuk peran Associate Product Manager & System Analyst",
+        "Terbuka untuk peran Product Manager & System Analyst",
       location: "Purwokerto · Bandung",
       supporting:
         "Saya menjembatani pengguna, bisnis, dan engineering—mengubah riset dan kebutuhan menjadi produk yang benar-benar terkirim.",
@@ -251,7 +251,7 @@ export const dictionaries = {
       photoAlt: "Foto Safhira Nanda",
       photoPending: "Foto segera hadir",
       badge: "Siap untuk peran baru",
-      currentRole: "Saat ini APM di Cazh",
+      currentRole: "Saat ini PM di Cazh",
       stats: [
         { value: "3.93", label: "IPK · Sistem Informasi" },
         { value: "6", label: "Sertifikasi" },
@@ -270,7 +270,7 @@ export const dictionaries = {
         {
           company: "PT Cazh Teknologi Inovasi",
           place: "Banyumas, Indonesia",
-          role: "Associate Product Manager",
+          role: "Product Manager",
           period: "Feb 2025 — Sekarang",
           blurb:
             "Perusahaan EdTech yang berfokus pada sistem manajemen pendidikan—meningkatkan efisiensi, transparansi, dan aksesibilitas administrasi pendidikan.",
@@ -437,7 +437,7 @@ export const dictionaries = {
       email: "Email",
       role: "Minat peran",
       roleOptions: [
-        { value: "apm", label: "Associate Product Manager" },
+        { value: "apm", label: "Product Manager" },
         { value: "sa", label: "System Analyst" },
         { value: "other", label: "Lainnya" },
       ],

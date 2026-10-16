@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/lib/site";
 
-export const alt = `${site.fullName} — Associate Product Manager`;
+export const alt = `${site.fullName} — Product Manager`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -38,7 +38,7 @@ export default function OpengraphImage() {
             {site.brand}
           </div>
           <div style={{ display: "flex", fontSize: 36, marginTop: 28, color: "#4a3a41" }}>
-            Associate Product Manager · System Analyst
+            Product Manager · System Analyst
           </div>
           <div style={{ display: "flex", fontSize: 26, marginTop: 40, color: "#7a6670" }}>
             {site.url.replace("https://", "")}

@@ -5,7 +5,7 @@ import { clientIp, rateLimit } from "@/lib/request";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const roleLabels: Record<string, string> = {
-  apm: "Associate Product Manager",
+  apm: "Product Manager",
   sa: "System Analyst",
   other: "Other",
 };

@@ -20,13 +20,13 @@ const body = Outfit({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   alternates: { canonical: "/" },
-  title: "Safhira Nanda — Associate Product Manager",
+  title: "Safhira Nanda — Product Manager",
   description:
-    "Portfolio of Safhira Nanda Rahmadhani — Associate Product Manager open to System Analyst roles. Bridging users, business, and engineering.",
+    "Portfolio of Safhira Nanda Rahmadhani — Product Manager open to System Analyst roles. Bridging users, business, and engineering.",
   openGraph: {
-    title: "Safhira Nanda — Associate Product Manager",
+    title: "Safhira Nanda — Product Manager",
     description:
-      "Product + systems portfolio. Open to Associate Product Manager & System Analyst roles.",
+      "Product + systems portfolio. Open to Product Manager & System Analyst roles.",
     type: "website",
     url: "/",
   },
@@ -38,7 +38,7 @@ const personJsonLd = {
   "@type": "Person",
   name: site.fullName,
   alternateName: site.brand,
-  jobTitle: "Associate Product Manager",
+  jobTitle: "Product Manager",
   url: site.url,
   email: `mailto:${site.email}`,
   image: site.photoUrl,
