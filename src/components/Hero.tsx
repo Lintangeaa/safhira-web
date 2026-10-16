@@ -38,11 +38,11 @@ export function Hero() {
     >
       <div className="absolute inset-0 hero-atmosphere" aria-hidden />
       <div
-        className="hero-blob -left-24 top-24 h-72 w-72 bg-[var(--pink-soft)]"
+        className="hero-blob -left-32 top-16 h-[28rem] w-[28rem] [--blob-color:var(--pink-soft)]"
         aria-hidden
       />
       <div
-        className="hero-blob right-0 bottom-10 h-80 w-80 bg-[#f6c9a8]"
+        className="hero-blob -right-20 bottom-0 h-[30rem] w-[30rem] [--blob-color:#f6c9a8]"
         aria-hidden
       />
 
@@ -50,7 +50,7 @@ export function Hero() {
         <div className="relative z-10">
           <p
             data-reveal
-            className="reveal inline-flex items-center gap-2.5 rounded-full border border-[var(--line)] bg-white/60 px-3.5 py-1.5 text-xs font-medium text-[var(--ink-soft)] backdrop-blur"
+            className="reveal inline-flex items-center gap-2.5 rounded-full border border-[var(--line)] bg-white/70 px-3.5 py-1.5 text-xs font-medium text-[var(--ink-soft)]"
           >
             <span className="pulse-dot" aria-hidden />
             {t.hero.badge}
@@ -110,20 +110,26 @@ export function Hero() {
           </dl>
         </div>
 
-        <div className="relative z-10 h-[min(70vh,560px)] w-full lg:h-[min(78vh,640px)]">
-          <div className="hero-photo-frame">
+        <div className="relative z-10 mx-auto w-full max-w-[440px] lg:max-w-none">
+          <div className="hero-arch relative aspect-[4/5] w-full">
+            <div className="hero-arch-glow" aria-hidden />
+            <span className="hero-arch-word" aria-hidden>
+              Product
+              <br />
+              Systems
+            </span>
             {site.photoUrl ? (
               <Image
                 src={site.photoUrl}
                 alt={t.hero.photoAlt}
                 fill
                 preload
-                sizes="(min-width: 1024px) 560px, 100vw"
+                sizes="(min-width: 1024px) 480px, 90vw"
                 className="hero-photo-img"
               />
             ) : (
-              <div className="absolute inset-0 z-[1] flex flex-col items-end justify-end p-8">
-                <span className="font-[family-name:var(--font-display)] text-6xl text-[var(--pink)]/40 sm:text-7xl">
+              <div className="absolute inset-0 z-[1] flex flex-col items-center justify-center">
+                <span className="font-[family-name:var(--font-display)] text-7xl text-[var(--pink)]/40">
                   SN
                 </span>
                 <span className="mt-2 text-sm text-[var(--ink-muted)]">
@@ -133,9 +139,31 @@ export function Hero() {
             )}
           </div>
 
+          <ul
+            className="pointer-events-none absolute -right-1 top-[6%] z-10 flex flex-col items-end gap-2 sm:-right-6"
+            aria-hidden
+          >
+            {["PRD & specs", "BPMN · ERD", "User research"].map((label, i) => (
+              <li
+                key={label}
+                data-reveal
+                className="reveal hero-float chip !bg-white/90 !px-3 !py-1 text-[11px] font-medium shadow-[0_8px_20px_-12px_rgba(42,28,34,0.4)] sm:mr-[var(--stagger)] sm:!px-[0.85rem] sm:!py-[0.4rem] sm:text-xs"
+                style={
+                  {
+                    animationDelay: `${i * 0.8}s`,
+                    "--stagger": `${i * 18}px`,
+                  } as React.CSSProperties
+                }
+              >
+                <span className="mr-1.5 h-1.5 w-1.5 rounded-full bg-[var(--pink)]" />
+                {label}
+              </li>
+            ))}
+          </ul>
+
           <div
             data-reveal
-            className="reveal card absolute -left-3 bottom-8 z-10 flex items-center gap-3 px-4 py-3 sm:-left-8"
+            className="reveal card absolute -left-3 bottom-[10%] z-10 flex items-center gap-3 px-4 py-3 sm:-left-8"
           >
             <span className="grid h-9 w-9 place-items-center rounded-full bg-[var(--pink)] text-sm font-semibold text-white">
               PM

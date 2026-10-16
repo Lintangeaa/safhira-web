@@ -104,7 +104,7 @@ export function Nav() {
       <div
         className={`mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border pl-5 pr-2 transition-[background,box-shadow,border-color] duration-300 ${
           scrolled || open
-            ? "border-[var(--line)] bg-[color-mix(in_srgb,var(--cream)_80%,transparent)] shadow-[0_10px_30px_-18px_rgba(42,28,34,0.45)] backdrop-blur-xl"
+            ? "border-[var(--line)] bg-[color-mix(in_srgb,var(--cream)_80%,transparent)] shadow-[0_10px_30px_-18px_rgba(42,28,34,0.45)] backdrop-blur-md"
             : "border-transparent bg-transparent"
         }`}
       >
