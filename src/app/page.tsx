@@ -8,8 +8,14 @@ import { Hero } from "@/components/Hero";
 import { Nav } from "@/components/Nav";
 import { Skills } from "@/components/Skills";
 import { Work } from "@/components/Work";
+import { listPublishedProjects } from "@/lib/projects";
 
-export default function Home() {
+// Re-rendered on demand by the CMS (revalidatePath); hourly as a fallback.
+export const revalidate = 3600;
+
+export default async function Home() {
+  const projects = await listPublishedProjects();
+
   return (
     <>
       <Nav />
@@ -17,7 +23,7 @@ export default function Home() {
         <Hero />
         <About />
         <Experience />
-        <Work />
+        <Work projects={projects} />
         <Achievements />
         <Education />
         <Skills />

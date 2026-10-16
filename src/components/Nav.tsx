@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLocale } from "@/components/LocaleProvider";
 import { site } from "@/lib/site";
@@ -22,10 +23,10 @@ function linkClass(active: boolean, mobile = false) {
         : "text-[var(--ink)] hover:text-[var(--pink)]"
     }`;
   }
-  return `text-sm transition-colors ${
+  return `rounded-full px-3 py-1.5 text-sm transition-colors ${
     active
-      ? "font-medium text-[var(--pink)]"
-      : "text-[var(--ink-muted)] hover:text-[var(--pink)]"
+      ? "bg-[var(--ink)] font-medium text-[var(--cream)]"
+      : "text-[var(--ink-muted)] hover:text-[var(--ink)]"
   }`;
 }
 
@@ -99,29 +100,29 @@ export function Nav() {
   }, []);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,backdrop-filter] duration-300 ${
-        scrolled
-          ? "border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--cream)_88%,transparent)] backdrop-blur-md"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-        <a
-          href="#top"
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
+      <div
+        className={`mx-auto flex h-14 max-w-6xl items-center justify-between rounded-full border pl-5 pr-2 transition-[background,box-shadow,border-color] duration-300 ${
+          scrolled || open
+            ? "border-[var(--line)] bg-[color-mix(in_srgb,var(--cream)_80%,transparent)] shadow-[0_10px_30px_-18px_rgba(42,28,34,0.45)] backdrop-blur-xl"
+            : "border-transparent bg-transparent"
+        }`}
+      >
+        <Link
+          href="/#top"
           className="font-[family-name:var(--font-display)] text-lg tracking-tight text-[var(--ink)]"
           onClick={() => setActiveId(null)}
         >
           {site.brand}
-        </a>
+        </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           {links.map((link) => {
             const active = activeId === link.id;
             return (
               <a
                 key={link.id}
-                href={`#${link.id}`}
+                href={`/#${link.id}`}
                 className={linkClass(active)}
                 aria-current={active ? "true" : undefined}
               >
@@ -133,14 +134,14 @@ export function Nav() {
 
         <div className="flex items-center gap-3">
           <div
-            className="flex rounded-md border border-[var(--line)] p-0.5 text-xs font-medium"
+            className="flex rounded-full border border-[var(--line)] bg-white/50 p-0.5 text-xs font-medium"
             role="group"
             aria-label="Language"
           >
             <button
               type="button"
               onClick={() => setLocale("en")}
-              className={`rounded px-2.5 py-1 transition-colors ${
+              className={`rounded-full px-2.5 py-1 transition-colors ${
                 locale === "en"
                   ? "bg-[var(--pink)] text-white"
                   : "text-[var(--ink-muted)] hover:text-[var(--ink)]"
@@ -151,7 +152,7 @@ export function Nav() {
             <button
               type="button"
               onClick={() => setLocale("id")}
-              className={`rounded px-2.5 py-1 transition-colors ${
+              className={`rounded-full px-2.5 py-1 transition-colors ${
                 locale === "id"
                   ? "bg-[var(--pink)] text-white"
                   : "text-[var(--ink-muted)] hover:text-[var(--ink)]"
@@ -163,7 +164,7 @@ export function Nav() {
 
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-[var(--line)] text-[var(--ink)] lg:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--line)] text-[var(--ink)] lg:hidden"
             aria-expanded={open}
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
@@ -185,14 +186,14 @@ export function Nav() {
       </div>
 
       {open && (
-        <div className="border-t border-[var(--line)] bg-[var(--cream)] px-5 py-4 lg:hidden">
+        <div className="card mx-auto mt-2 max-w-6xl px-5 py-4 lg:hidden">
           <nav className="flex flex-col gap-3" aria-label="Mobile">
             {links.map((link) => {
               const active = activeId === link.id;
               return (
                 <a
                   key={link.id}
-                  href={`#${link.id}`}
+                  href={`/#${link.id}`}
                   className={linkClass(active, true)}
                   aria-current={active ? "true" : undefined}
                   onClick={() => setOpen(false)}

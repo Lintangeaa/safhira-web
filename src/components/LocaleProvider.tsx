@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -23,12 +24,40 @@ type LocaleContextValue = {
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
+const STORAGE_KEY = "locale";
+
+function readInitialLocale(): Locale {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "en" || saved === "id") return saved;
+  } catch {}
+  return navigator.language.toLowerCase().startsWith("id") ? "id" : "en";
+}
+
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>("en");
+  // Server render is always "en"; the saved/browser locale is applied after
+  // hydration so the static HTML stays cacheable.
+  const [locale, setLocaleState] = useState<Locale>("en");
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- sync from browser after hydration
+    setLocaleState(readInitialLocale());
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
+
+  const setLocale = useCallback((next: Locale) => {
+    setLocaleState(next);
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {}
+  }, []);
 
   const toggleLocale = useCallback(() => {
-    setLocale((prev) => (prev === "en" ? "id" : "en"));
-  }, []);
+    setLocale(locale === "en" ? "id" : "en");
+  }, [locale, setLocale]);
 
   const value = useMemo(
     () => ({
@@ -37,7 +66,7 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       setLocale,
       toggleLocale,
     }),
-    [locale, toggleLocale],
+    [locale, setLocale, toggleLocale],
   );
 
   return (

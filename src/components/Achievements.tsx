@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
 import { useLocale } from "@/components/LocaleProvider";
 import { certificates } from "@/lib/certificates";
 
@@ -13,14 +14,14 @@ export function Achievements() {
   return (
     <section
       id="achievements"
-      className="section-pad border-t border-[var(--line)]"
+      className="section-pad"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal>
-          <h2 className="section-title">{t.achievements.heading}</h2>
+          <SectionHeading index="04" title={t.achievements.heading} />
         </Reveal>
 
-        <ul className="mt-12 divide-y divide-[var(--line)] border-y border-[var(--line)]">
+        <ul className="mt-10 grid gap-3">
           {certificates.map((cert) => {
             const copy = t.achievements.items[cert.id as keyof typeof t.achievements.items];
             if (!copy) return null;
@@ -32,9 +33,9 @@ export function Achievements() {
 
             return (
               <Reveal key={cert.id}>
-                <li className="py-6">
+                <li className="card card-hover p-5 sm:p-6">
                   <div className="grid gap-2 sm:grid-cols-[88px_1fr] sm:gap-8">
-                    <span className="text-sm font-medium text-[var(--pink)]">
+                    <span className="chip h-fit w-fit text-xs font-medium text-[var(--pink-deep)]">
                       {cert.year}
                     </span>
                     <div>
@@ -59,7 +60,7 @@ export function Achievements() {
                                 prev === cert.id ? null : cert.id,
                               )
                             }
-                            className="shrink-0 text-sm font-medium text-[var(--pink)] underline-offset-4 transition hover:underline"
+                            className="btn btn-ghost shrink-0 px-4 py-2 text-xs"
                           >
                             {isOpen
                               ? t.achievements.hidePreview
@@ -76,7 +77,7 @@ export function Achievements() {
                           className={`cert-preview ${isOpen ? "is-open" : ""}`}
                         >
                           <div className="cert-preview-inner">
-                            <div className="mt-5 overflow-hidden border border-[var(--line)] bg-white/60">
+                            <div className="mt-5 overflow-hidden rounded-2xl border border-[var(--line)] bg-white/60">
                               <iframe
                                 title={`${copy.title} PDF`}
                                 src={`${cert.pdfUrl}#toolbar=0&navpanes=0`}

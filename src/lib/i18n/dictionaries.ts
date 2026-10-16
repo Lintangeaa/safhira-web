@@ -23,6 +23,13 @@ export const dictionaries = {
       ctaContact: "Get in touch",
       photoAlt: "Portrait of Safhira Nanda",
       photoPending: "Photo coming soon",
+      badge: "Available for new roles",
+      currentRole: "Currently APM at Cazh",
+      stats: [
+        { value: "3.93", label: "GPA · Information Systems" },
+        { value: "6", label: "Certifications" },
+        { value: "12", label: "Team members led" },
+      ],
     },
     about: {
       heading: "About",
@@ -80,6 +87,10 @@ export const dictionaries = {
       heading: "Selected work",
       sub: "Mini cases from product work at Cazh—discovery to delivery.",
       metricSlot: "Metric TBD",
+      readCase: "Read case study",
+      back: "Back to portfolio",
+      results: "Results",
+      artifacts: "Artifacts",
       cases: [
         {
           tag: "01 · Discovery",
@@ -239,6 +250,13 @@ export const dictionaries = {
       ctaContact: "Hubungi saya",
       photoAlt: "Foto Safhira Nanda",
       photoPending: "Foto segera hadir",
+      badge: "Siap untuk peran baru",
+      currentRole: "Saat ini APM di Cazh",
+      stats: [
+        { value: "3.93", label: "IPK · Sistem Informasi" },
+        { value: "6", label: "Sertifikasi" },
+        { value: "12", label: "Anggota tim dipimpin" },
+      ],
     },
     about: {
       heading: "Tentang",
@@ -296,6 +314,10 @@ export const dictionaries = {
       heading: "Karya pilihan",
       sub: "Mini case dari pekerjaan produk di Cazh—dari discovery hingga delivery.",
       metricSlot: "Metrik menyusul",
+      readCase: "Baca studi kasus",
+      back: "Kembali ke portofolio",
+      results: "Hasil",
+      artifacts: "Artefak",
       cases: [
         {
           tag: "01 · Discovery",

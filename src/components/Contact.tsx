@@ -1,7 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/Reveal";
+import { SectionHeading } from "@/components/SectionHeading";
 import { useLocale } from "@/components/LocaleProvider";
 import { site } from "@/lib/site";
 
@@ -10,6 +11,11 @@ type Status = "idle" | "sending" | "success" | "error";
 export function Contact() {
   const { t } = useLocale();
   const [status, setStatus] = useState<Status>("idle");
+  // Used by the API to reject instant (bot) submissions.
+  const renderedAt = useRef(0);
+  useEffect(() => {
+    renderedAt.current = Date.now();
+  }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,6 +32,8 @@ export function Contact() {
           email: data.get("email"),
           role: data.get("role"),
           message: data.get("message"),
+          website: data.get("website"),
+          elapsedMs: Date.now() - renderedAt.current,
         }),
       });
       if (!res.ok) throw new Error("Failed");
@@ -37,42 +45,44 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="section-pad border-t border-[var(--line)]">
+    <section id="contact" className="section-pad">
       <div className="mx-auto grid max-w-6xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr]">
         <Reveal>
-          <h2 className="section-title">{t.contact.heading}</h2>
-          <p className="mt-4 max-w-sm text-[var(--ink-muted)]">{t.contact.sub}</p>
+          <SectionHeading index="07" title={t.contact.heading} sub={t.contact.sub} />
 
-          <div className="mt-8 space-y-3 text-sm">
-            <p>
-              <span className="text-[var(--ink-muted)]">{t.contact.orEmail}: </span>
-              <a
-                href={`mailto:${site.email}`}
-                className="font-medium text-[var(--ink)] transition hover:text-[var(--pink)]"
-              >
-                {site.email}
-              </a>
-            </p>
-            <p>
-              <a
-                href={site.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-[var(--ink)] transition hover:text-[var(--pink)]"
-              >
-                {t.contact.linkedin}
-              </a>
-            </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href={`mailto:${site.email}`} className="btn btn-ghost">
+              <span className="text-[var(--ink-muted)]">{t.contact.orEmail}:</span>
+              {site.email}
+            </a>
+            <a
+              href={site.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost"
+            >
+              {t.contact.linkedin} ↗
+            </a>
           </div>
         </Reveal>
 
         <Reveal>
-          <form onSubmit={onSubmit} className="space-y-5">
+          <form onSubmit={onSubmit} className="card space-y-5 p-6 sm:p-8">
+            {/* Honeypot: hidden from people, bots tend to fill it. */}
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden
+              className="absolute -left-[9999px] h-0 w-0 opacity-0"
+            />
             <label className="block">
               <span className="text-sm text-[var(--ink-muted)]">{t.contact.name}</span>
               <input
                 name="name"
                 required
+                maxLength={120}
                 autoComplete="name"
                 className="field mt-1.5"
               />
@@ -84,6 +94,7 @@ export function Contact() {
                 name="email"
                 type="email"
                 required
+                maxLength={200}
                 autoComplete="email"
                 className="field mt-1.5"
               />
@@ -107,6 +118,8 @@ export function Contact() {
               <textarea
                 name="message"
                 required
+                minLength={10}
+                maxLength={5000}
                 rows={5}
                 className="field mt-1.5 resize-y"
               />
@@ -115,7 +128,7 @@ export function Contact() {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="inline-flex items-center justify-center bg-[var(--pink)] px-6 py-3 text-sm font-medium text-white transition hover:bg-[var(--pink-deep)] disabled:opacity-60"
+              className="btn btn-primary w-full disabled:opacity-60 sm:w-auto"
             >
               {status === "sending" ? t.contact.sending : t.contact.submit}
             </button>

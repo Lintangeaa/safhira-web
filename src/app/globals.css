@@ -112,6 +112,7 @@ body::before {
 
 .field {
   width: 100%;
+  border-radius: 0.9rem;
   border: 1px solid var(--line);
   background: color-mix(in srgb, white 70%, var(--cream));
   padding: 0.75rem 0.9rem;
@@ -166,5 +167,194 @@ body::before {
 
   .cert-preview {
     transition: none;
+  }
+}
+
+/* ---------- Modern UI layer ---------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+}
+
+.eyebrow::before {
+  content: "";
+  height: 1px;
+  width: 2rem;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--pink-deep) 0%, var(--pink) 45%, #e9a07a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.card {
+  border-radius: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+  background: color-mix(in srgb, white 62%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, white 80%, transparent) inset,
+    0 10px 30px -18px color-mix(in srgb, var(--ink) 35%, transparent);
+  backdrop-filter: blur(12px);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--pink) 35%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, white 80%, transparent) inset,
+    0 22px 40px -22px color-mix(in srgb, var(--pink-deep) 45%, transparent);
+}
+
+.card-ink {
+  background: linear-gradient(150deg, #3a2530 0%, var(--ink) 100%);
+  color: var(--cream);
+  border-color: transparent;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  background: color-mix(in srgb, white 70%, transparent);
+  padding: 0.4rem 0.85rem;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.chip:hover {
+  border-color: var(--pink);
+  color: var(--pink-deep);
+  background: white;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.8rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--cream);
+  box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--ink) 70%, transparent);
+}
+
+.btn-primary:hover {
+  background: var(--pink-deep);
+  box-shadow: 0 14px 28px -12px color-mix(in srgb, var(--pink-deep) 70%, transparent);
+}
+
+.btn-ghost {
+  border: 1px solid color-mix(in srgb, var(--ink) 15%, transparent);
+  background: color-mix(in srgb, white 55%, transparent);
+  color: var(--ink);
+  backdrop-filter: blur(8px);
+}
+
+.btn-ghost:hover {
+  border-color: var(--pink);
+  color: var(--pink-deep);
+}
+
+.pulse-dot {
+  position: relative;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 999px;
+  background: #22a06b;
+}
+
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.hero-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(60px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: linear-gradient(var(--pink), color-mix(in srgb, var(--pink) 10%, transparent));
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 0;
+  top: 1.75rem;
+  height: 0.95rem;
+  width: 0.95rem;
+  border-radius: 999px;
+  border: 3px solid var(--cream);
+  background: var(--pink);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--pink) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot::after {
+    animation: none;
+  }
+  .card-hover:hover {
+    transform: none;
   }
 }

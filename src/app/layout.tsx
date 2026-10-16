@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Fraunces, Outfit } from "next/font/google";
 import { LocaleProvider } from "@/components/LocaleProvider";
+import { site } from "@/lib/site";
 import "./globals.css";
 
 const display = Fraunces({
@@ -15,6 +18,8 @@ const body = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  alternates: { canonical: "/" },
   title: "Safhira Nanda — Associate Product Manager",
   description:
     "Portfolio of Safhira Nanda Rahmadhani — Associate Product Manager open to System Analyst roles. Bridging users, business, and engineering.",
@@ -23,7 +28,22 @@ export const metadata: Metadata = {
     description:
       "Product + systems portfolio. Open to Associate Product Manager & System Analyst roles.",
     type: "website",
+    url: "/",
   },
+  twitter: { card: "summary_large_image" },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.fullName,
+  alternateName: site.brand,
+  jobTitle: "Associate Product Manager",
+  url: site.url,
+  email: `mailto:${site.email}`,
+  image: site.photoUrl,
+  sameAs: [site.linkedin],
+  address: { "@type": "PostalAddress", addressCountry: "ID" },
 };
 
 export default function RootLayout({
@@ -34,7 +54,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${display.variable} ${body.variable} h-full`}>
       <body className="min-h-full antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <LocaleProvider>{children}</LocaleProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -1,5 +1,8 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { clientIp, rateLimit } from "@/lib/request";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const roleLabels: Record<string, string> = {
   apm: "Associate Product Manager",
@@ -17,6 +20,28 @@ export async function POST(request: Request) {
 
     if (!name || !email || !role || !message) {
       return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+    }
+
+    // Bots: filled the hidden honeypot or submitted faster than a human could.
+    // Pretend success so they don't retry.
+    const elapsedMs = Number(body.elapsedMs);
+    if (body.website || !Number.isFinite(elapsedMs) || elapsedMs < 3000) {
+      return NextResponse.json({ ok: true });
+    }
+
+    if (
+      name.length > 120 ||
+      email.length > 200 ||
+      !EMAIL_RE.test(email) ||
+      !(role in roleLabels) ||
+      message.length < 10 ||
+      message.length > 5000
+    ) {
+      return NextResponse.json({ error: "Invalid fields" }, { status: 400 });
+    }
+
+    if (!(await rateLimit("contact", await clientIp(), 3, 60))) {
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
     const apiKey = process.env.RESEND_API_KEY;
