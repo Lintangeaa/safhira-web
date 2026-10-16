@@ -16,8 +16,9 @@ if (!url) {
 
 const sql = neon(url);
 const statements = readFileSync(new URL("../db/schema.sql", import.meta.url), "utf8")
+  .replace(/--.*$/gm, "")
   .split(";")
-  .map((s) => s.replace(/--.*$/gm, "").trim())
+  .map((s) => s.trim())
   .filter(Boolean);
 
 for (const statement of statements) {
