@@ -3,3 +3,6 @@ packages:
 allowBuilds:
   sharp: true
   unrs-resolver: true
+overrides:
+  # 6.29.1 is younger than pnpm minimumReleaseAge on Vercel; lift once it ages.
+  undici: 6.29.0
