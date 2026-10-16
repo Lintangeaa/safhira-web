@@ -17,7 +17,7 @@ export function About() {
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           <Reveal className="md:col-span-2">
             <div className="card h-full p-7 sm:p-9">
-              <p className="font-[family-name:var(--font-display)] text-2xl leading-snug text-[var(--ink)] max-sm:text-xl sm:text-[1.75rem]">
+              <p className="text-lg leading-relaxed text-[var(--ink-soft)] sm:text-xl">
                 {t.about.body}
               </p>
             </div>

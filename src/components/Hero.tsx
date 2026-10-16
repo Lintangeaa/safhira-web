@@ -58,7 +58,7 @@ export function Hero() {
 
           {/* LCP candidates stay visible on first paint (no reveal fade). */}
           <h1 className="mt-6 font-[family-name:var(--font-display)] text-[clamp(3.25rem,9vw,6rem)] leading-[0.92] tracking-[-0.04em] text-[var(--ink)]">
-            Safhira <span className="text-gradient italic">Nanda</span>
+            Sa<span className="text-gradient">fhira</span> Nanda
           </h1>
 
           <p
